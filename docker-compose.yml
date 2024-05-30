@@ -1,0 +1,33 @@
+services:
+
+  client:
+    image: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_FRONT }}
+    build:
+      context: './client'
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    container_name: client
+    networks:
+      - hyup-network
+    volumes:
+      - ./client:/app
+    depends_on:
+      - backend
+
+  server:
+    image: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_BACK }}
+    build: 
+      context: './back'
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    container_name: backend
+    networks:
+      - hyup-network
+    volumes:
+      - ./back:/app
+
+networks:
+  hyup-network:
+    driver: bridge
