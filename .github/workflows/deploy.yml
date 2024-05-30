@@ -37,7 +37,7 @@ jobs:
           port: ${{ secrets.EC2_SSH_PORT }}
           timeout: 60s
           script: |
-            sudo docker compose up
+            docker compose up
         # 환경 변수 파일의 위치 재설정 필요.
             
       # REMOVE Github IP FROM security group
